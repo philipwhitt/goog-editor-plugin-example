@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project basedir="." default="compile">
+
+	<!-- Download goog closure src + compiler -->
+	<mkdir dir="build"/>
+	<get src="http://dl.google.com/closure-compiler/compiler-latest.zip" dest="build/compiler.zip" skipexisting="true" />
+	<get src="https://closure-library.googlecode.com/files/closure-library-20130212-95c19e7f0f5f.zip" dest="build/goog-source.zip" skipexisting="true" />
+
+	<unzip src="build/compiler.zip" dest="build" />
+	<unzip src="build/goog-source.zip" dest="build/goog/src" />
+
+	<!-- compile js ap -->
+	<target name="compile">
+		<sequential>
+			<exec executable="python" failonerror="true" logError="true"> 
+				<arg value="${basedir}/build/goog/src/closure/bin/calcdeps.py" /> 
+
+				<arg line='-i "${basedir}/src/main.js"' /> 
+
+				<arg line='--output_file "${basedir}/build/lib.js"' />
+
+				<arg line='-p "${basedir}/build/goog/src/closure"' /> 
+				<arg line='-p "${basedir}/src"' /> 
+
+				<arg line="-o compiled" /> 
+				<arg line='-c "${basedir}/build/compiler.jar"' /> 
+
+				<arg line='-f "--compilation_level=SIMPLE_OPTIMIZATIONS"' /> 
+				<arg line='-f "--output_wrapper=(function(){%output%})();"' /> 
+				<arg line='-f "--jscomp_error=checkTypes"' />
+				<arg line='-f "--jscomp_warning=accessControls"' />
+			</exec>
+		</sequential>
+		
+		<echo msg="Open index.html in a browser to see working editor with plugin" />
+	</target>
+
+</project>
