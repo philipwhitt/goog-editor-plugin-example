@@ -1,0 +1,14 @@
+.goog-toolbar {
+  background: #fafafa url(http://ssl.gstatic.com/editor/toolbar-bg.png) repeat-x bottom left;
+}
+.tr-icon {
+	background-image: url(http://ssl.gstatic.com/editor/editortoolbar.png);
+}
+#rte-editor {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	border: solid 1px #CCC;
+	border-top: none; 
+	height: 550px;
+}
